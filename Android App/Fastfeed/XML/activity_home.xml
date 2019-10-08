@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityHome"
+    android:background="@drawable/my_bg_anim"
+    android:id="@+id/PageHome"
+    android:orientation="vertical">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/sartajLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/sartajlogo"
+                android:layout_centerVertical="true"
+                android:alpha="0.2"/>
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="90dp"
+                android:text="Enter your mobile no."
+                android:textColor="@color/color2"
+                android:textSize="25dp" />
+
+            <EditText
+                android:id="@+id/editTextMobNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView6"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:hint="for eg: 9914427051"
+                android:inputType="phone"
+                android:maxLength="10" />
+
+            <EditText
+                android:id="@+id/editText3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView6"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="0dp"
+                android:layout_toLeftOf="@+id/editTextMobNo"
+                android:ems="2"
+                android:enabled="false"
+                android:inputType="numberSigned"
+                android:text="+91"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/buttonHome"
+                android:background="@drawable/btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:layout_below="@+id/sartajLogo"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="20dp"
+                />
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

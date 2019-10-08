@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/my_bg_anim"
+    android:id="@+id/Page6"
+    tools:context=".Activity1">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="120dp"
+                android:text="How likely would you suggest "
+                android:layout_centerVertical="true"
+                android:textColor="@color/color2"
+                android:textSize="19sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView1"
+                android:layout_centerHorizontal="true"
+                android:text="Sartaj to others"
+                android:layout_centerVertical="true"
+                android:textColor="@color/color2"
+                android:textSize="19sp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/textView1"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/blur" />
+
+            <Button
+                android:id="@+id/btn_most_likely"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/logo"
+                android:layout_centerHorizontal="true"
+                android:text="Most Likely"
+                android:textColor="@color/color2"
+                android:textStyle="bold"
+                android:background="@drawable/btn"/>
+
+            <Button
+                android:id="@+id/btn_maybe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_most_likely"
+                android:layout_centerHorizontal="true"
+                android:text="Maybe"
+                android:textStyle="bold"
+                android:textColor="@color/color2"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn"
+                />
+
+            <Button
+                android:id="@+id/btn_least_likely"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_maybe"
+                android:layout_centerHorizontal="true"
+                android:text="Least Likely"
+                android:textStyle="bold"
+                android:textColor="@color/color2"
+                android:background="@drawable/btn"
+                android:layout_marginTop="10dp"
+                />
+
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>
