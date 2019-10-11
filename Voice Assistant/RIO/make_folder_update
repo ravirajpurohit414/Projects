@@ -1,0 +1,270 @@
+import os
+import Riomajorupdate1
+from difflib import get_close_matches
+import speech_recognition
+import win32com.client as wincl
+
+driv=''
+nam=''
+typ=''
+command=''
+tofile=''
+fol=''
+
+def drive():
+    global driv
+    i = 0
+    while i == 0:
+        # obtain audio from the microphone
+        r = speech_recognition.Recognizer()
+        with speech_recognition.Microphone() as source:
+            # print("Please wait. Calibrating microphone...")
+            # listen for 1 second and create the ambient noise energy level
+            r.adjust_for_ambient_noise(source, duration=1)
+            print("Speak Drive name:")
+            speak.Speak("Speak Drive name")
+            audio = r.listen(source, phrase_time_limit=2)
+
+        # recognize speech using Sphinx/Google
+        try:
+            response = r.recognize_google(audio)
+            print("You Said:" +response)
+            speak.Speak("You said "+response)
+            driv=response
+
+
+        except speech_recognition.UnknownValueError:
+            print("Cannot understand")
+            speak.Speak("Cannot understand")
+            drive()
+
+        except speech_recognition.RequestError as e:
+            print("Sphinx error; {0}".format(e))
+
+        i = i + 1
+
+def loc():
+    global command
+    i = 0
+    while i == 0:
+        # obtain audio from the microphone
+        r = speech_recognition.Recognizer()
+        with speech_recognition.Microphone() as source:
+            # print("Please wait. Calibrating microphone...")
+            # listen for 1 second and create the ambient noise energy level
+            r.adjust_for_ambient_noise(source, duration=1)
+            print("Speak next location:")
+            speak.Speak("Speak next location")
+            audio = r.listen(source, phrase_time_limit=2)
+
+        # recognize speech using Sphinx/Google
+        try:
+            response = r.recognize_google(audio)
+            print("You Said:" +response)
+            speak.Speak("You said "+response)
+            command=response
+
+        except speech_recognition.UnknownValueError:
+            print("Cannot understand")
+            speak.Speak("Cannot understand")
+            loc()
+
+        except speech_recognition.RequestError as e:
+            print("Sphinx error; {0}".format(e))
+
+        i = i + 1
+
+def txt_write():
+    global toFile
+    i = 0
+    while i == 0:
+        # obtain audio from the microphone
+        r = speech_recognition.Recognizer()
+        with speech_recognition.Microphone() as source:
+            # print("Please wait. Calibrating microphone...")
+            # listen for 1 second and create the ambient noise energy level
+            r.adjust_for_ambient_noise(source, duration=1)
+            print("Speak text you want to write")
+            speak.Speak("Speak text you want to write")
+            audio = r.listen(source, phrase_time_limit=2)
+
+        # recognize speech using Sphinx/Google
+        try:
+            response = r.recognize_google(audio)
+            print("You Said:" +response)
+            speak.Speak("You said "+response)
+            return response
+
+        except speech_recognition.UnknownValueError:
+            print("Cannot understand")
+            speak.Speak("Cannot understand")
+            txt_write()
+
+        except speech_recognition.RequestError as e:
+            print("Sphinx error; {0}".format(e))
+
+        i = i + 1
+
+def folname():
+    global nam
+    i = 0
+    while i == 0:
+        # obtain audio from the microphone
+        r = speech_recognition.Recognizer()
+        with speech_recognition.Microphone() as source:
+            # print("Please wait. Calibrating microphone...")
+            # listen for 1 second and create the ambient noise energy level
+            r.adjust_for_ambient_noise(source, duration=1)
+            print("Speak folder name")
+            speak.Speak("Speak folder name")
+            audio = r.listen(source, phrase_time_limit=2)
+
+        # recognize speech using Sphinx/Google
+        try:
+            response = r.recognize_google(audio)
+            print("You Said:" +response)
+            speak.Speak("You said "+response)
+            nam=response
+
+        except speech_recognition.UnknownValueError:
+            print("Cannot understand")
+            speak.Speak("Cannot understand")
+            folname()
+
+        except speech_recognition.RequestError as e:
+            print("Sphinx error; {0}".format(e))
+
+        i = i + 1
+
+def file_type():
+    global typ
+    i = 0
+    while i == 0:
+        # obtain audio from the microphone
+        r = speech_recognition.Recognizer()
+        with speech_recognition.Microphone() as source:
+            # print("Please wait. Calibrating microphone...")
+            # listen for 1 second and create the ambient noise energy level
+            r.adjust_for_ambient_noise(source, duration=1)
+            print("Speak type of file")
+            speak.Speak("Speak type of file")
+            audio = r.listen(source, phrase_time_limit=2)
+
+        # recognize speech using Sphinx/Google
+        try:
+            response = r.recognize_google(audio)
+            print("You Said:" +response)
+            speak.Speak("You said "+response)
+            typ=response
+
+        except speech_recognition.UnknownValueError:
+            print("Cannot understand")
+            speak.Speak("Cannot understand")
+            file_type()
+
+        except speech_recognition.RequestError as e:
+            print("Sphinx error; {0}".format(e))
+
+        i = i + 1
+
+speak=wincl.Dispatch("SAPI.SpVoice")
+
+def driver():
+    global driv
+    global nam
+    global typ
+    global command
+    global toFile
+    global fol
+    drive()
+    print(driv)
+    try:
+        if driv=='c':
+            driv='C'
+        elif driv=='d':
+            driv='D'
+        elif driv=='e':
+            driv='E'
+        elif driv=='f':
+            driv='F'
+        elif driv=='back' or driv=='go back':
+            RioMajor.riomajor()
+
+        else:
+            driver()
+        os.startfile(driv+':\\')
+        i=0
+        fol=[]
+        for root,dirs,files in os.walk(driv+':\\'):
+            for _ in dirs:
+                fol=dirs
+                i=i+1
+            if i>=1:
+                break
+        print(fol)
+        command=''
+        driv=driv+':\\'
+    except:
+        speak.Speak("drive doesnt exist")
+        driver()
+
+def loca():
+    global driv
+    global nam
+    global typ
+    global command
+    global toFile
+    global fol
+    try:
+        while True:
+            speak.Speak("enter the next location or make here")
+            loc()
+            if command!='make':
+                c=get_close_matches(command,fol)[0]
+                os.startfile(driv+c)
+                fol=[]
+                i=0
+                for root, dirs, files in os.walk(driv+c):
+                    for _ in dirs:
+                        fol = dirs
+                        i = i + 1
+                    if i >= 1:
+                        break
+                print(fol)
+                prevloc=driv
+                driv=driv+c+"\\"
+                print(driv)  #C//Data//
+            elif command=='back':
+                driv=prevloc
+            else:
+                break
+    except:
+        speak.Speak("location doesnt exist")
+        loca()
+def makeit():
+    global driv
+    global nam
+    global typ
+    global command
+    global toFile
+    global fol
+    try:
+        folname()
+        print(nam)
+        file_type()
+        print(typ)
+
+        if 'text' in typ or 'txt' in typ:
+            completeName = os.path.join(driv,nam+".txt")
+            file1 = open(completeName, "w")
+            txt_write()
+            file1.write(toFile)
+            file1.close()
+
+        elif 'folder' in typ:
+            os.mkdir(driv+nam)
+
+    except:
+        print("cant make folder")
+        speak.Speak("cant make folder")
+        makeit()
