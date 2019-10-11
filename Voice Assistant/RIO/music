@@ -1,0 +1,88 @@
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+import win32com.client as wincl
+import speech_recognition
+import time
+speak = wincl.Dispatch("SAPI.SpVoice")
+song=''
+driver=''
+
+def songname():
+    global song
+    i = 0
+    while i == 0:
+        # obtain audio from the microphone
+        r = speech_recognition.Recognizer()
+        with speech_recognition.Microphone() as source:
+            # print("Please wait. Calibrating microphone...")
+            # listen for 1 second and create the ambient noise energy level
+            r.adjust_for_ambient_noise(source, duration=1)
+            print("Speak song name:")
+            speak.Speak("Speak song name")
+            audio = r.listen(source, phrase_time_limit=2)
+
+        # recognize speech using Sphinx/Google
+        try:
+            response = r.recognize_google(audio)
+            print("You Said:" +response)
+            speak.Speak("You said "+response)
+            song=response
+
+        except speech_recognition.UnknownValueError:
+            print("Cannot understand")
+            speak.Speak("Cannot understand")
+            search()
+
+        except speech_recognition.RequestError as e:
+            print("Sphinx error; {0}".format(e))
+
+        i = i + 1
+
+def openchrome():
+    songname()
+    global song
+    global driver
+    driver = webdriver.Chrome('chromedriver')
+    driver.get("https://www.google.co.in/")
+    wait = WebDriverWait(driver, 300)
+    x = '//input[@class="gLFyf gsfi"]'
+    search=wait.until(EC.presence_of_element_located((By.XPATH,x)))
+    search.send_keys( song + Keys.ENTER)
+
+def first_link():
+    global driver
+    y = '//h3[@class="LC20lb"]'
+    tik = driver.find_element_by_xpath(y)
+    tik.click()
+
+def contlisten():
+    global driver
+    response=''
+    while 'stop' not in response:
+        # obtain audio from the microphone
+        r = speech_recognition.Recognizer()
+        with speech_recognition.Microphone() as source:
+            # print("Please wait. Calibrating microphone...")
+            # listen for 1 second and create the ambient noise energy level
+            r.adjust_for_ambient_noise(source, duration=1)
+            audio = r.listen(source, phrase_time_limit=2)
+
+        # recognize speech using Sphinx/Google
+        try:
+            response = r.recognize_google(audio)
+            print("You Said:" +response)
+
+        except speech_recognition.UnknownValueError:
+            print("Cannot understand")
+            continue
+
+        except speech_recognition.RequestError as e:
+            print("Sphinx error; {0}".format(e))
+            continue
+    driver.quit()
+
