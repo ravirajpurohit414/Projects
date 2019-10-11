@@ -1,0 +1,7 @@
+Rio Major: This file contains the main file of the project. This is the base file.
+make_folder_update: This file covers the innvoation of this project i.e. file handling. It can create or delete folder on voice command.
+My wiki: This file contains the wikipedia module of the project. By this we can search about any celebrity's wikipedia information. 
+          If information not found, it acts accordingly.
+myweather: This file is responsible for weather report using voice assistant.
+myapps: this file is responsible for the coverage of basic functionalities performed by windows.
+music: this file is responsible for playing music through voice assistant.
