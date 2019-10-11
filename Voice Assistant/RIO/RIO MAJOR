@@ -1,0 +1,398 @@
+import speech_recognition
+import win32com.client as wincl
+import time
+import datetime
+import myapps
+import gsearch
+import mywiki
+import time
+import myweather
+import musicc
+import os
+import folder_backup1
+import os
+import close_file
+import traceback
+
+
+
+speak = wincl.Dispatch("SAPI.SpVoice")
+str = ''
+song = ''
+nothing = ''
+def contlist():
+    i = 0
+    while True:
+        # obtain audio from the microphone
+        r = speech_recognition.Recognizer()
+        with speech_recognition.Microphone() as source:
+            # print("Please wait. Calibrating microphone...")
+            # listen for 1 second and create the ambient noise energy level
+            r.adjust_for_ambient_noise(source, duration=1)
+            audio = r.listen(source, phrase_time_limit=2)
+
+        # recognize speech using Sphinx/Google
+        try:
+            response = r.recognize_google(audio)
+            bac = response
+            if i<=1:
+                speak.Speak('I am on...')
+            print(bac)
+            if 'rio' in bac or 'Rio' in bac:
+                speak.Speak('Hey There...')
+                break
+        except speech_recognition.UnknownValueError:
+            print("Didn't get that")
+            contlist()
+
+        except speech_recognition.RequestError as e:
+            print("Sphinx error; {0}".format(e))
+
+        i = i+1
+    riomajor()
+
+
+def riomajor():
+    def songa():
+        global song
+        i = 0
+        while i == 0:
+            # obtain audio from the microphone
+            r = speech_recognition.Recognizer()
+            with speech_recognition.Microphone() as source:
+                # print("Please wait. Calibrating microphone...")
+                # listen for 1 second and create the ambient noise energy level
+                r.adjust_for_ambient_noise(source, duration=1)
+                print("Speak song name:")
+                speak.Speak("Speak song name")
+                audio = r.listen(source, phrase_time_limit=2)
+
+            # recognize speech using Sphinx/Google
+            try:
+                response = r.recognize_google(audio)
+                print("You Said:" + response)
+                speak.Speak("You said " + response)
+                song = response
+
+            except speech_recognition.UnknownValueError:
+                print("Didn't get that")
+                speak.Speak("Didn't get that")
+                songa()
+
+            except speech_recognition.RequestError as e:
+                print("Sphinx error; {0}".format(e))
+
+            i = i + 1
+
+    def phrase():
+        global str
+        i = 0
+        while i == 0:
+            # obtain audio from the microphone
+            r = speech_recognition.Recognizer()
+            with speech_recognition.Microphone() as source:
+                # print("Please wait. Calibrating microphone...")
+                # listen for 1 second and create the ambient noise energy level
+                r.adjust_for_ambient_noise(source, duration=1)
+
+                print("Speak Command:")
+                speak.Speak("Speak Command")
+                audio = r.listen(source, phrase_time_limit=2)
+
+            # recognize speech using Sphinx/Google
+            try:
+                response = r.recognize_google(audio)
+                print("You Said:" + response)
+                speak.Speak("You said " + response)
+                str = response
+
+            except speech_recognition.UnknownValueError:
+                print("Didn't get that")
+                speak.Speak("Didn't get that")
+                phrase()
+            except speech_recognition.RequestError as e:
+                print("Sphinx error; {0}".format(e))
+
+            i = i + 1
+
+    def nothing_else():
+        global nothing
+        i = 0
+        while i == 0:
+            # obtain audio from the microphone
+            r = speech_recognition.Recognizer()
+            with speech_recognition.Microphone() as source:
+                # print("Please wait. Calibrating microphone...")
+                # listen for 1 second and create the ambient noise energy level
+                r.adjust_for_ambient_noise(source, duration=1)
+                print("Do you want to make a google search:")
+                speak.Speak("Do you want to make a google search")
+                audio = r.listen(source, phrase_time_limit=2)
+
+            # recognize speech using Sphinx/Google
+            try:
+                response = r.recognize_google(audio)
+                print("You Said:" + response)
+                speak.Speak("You said " + response)
+                nothing = response
+                if 'yes' in nothing:
+                    gsearch.search(str)
+                else:
+                    pass
+
+            except speech_recognition.UnknownValueError:
+                print("Didn't get that")
+                speak.Speak("Didn't get that")
+                nothing_else()
+
+            except speech_recognition.RequestError as e:
+                print("Sphinx error; {0}".format(e))
+
+            i = i + 1
+
+    localtime = time.asctime(time.localtime(time.time()))
+
+    now = datetime.datetime.now()
+    hr = now.hour
+
+    guest = "speak.Speak hello to "
+    google = "Google about "
+    search = "search for "
+    wiki = "Wiki about "
+    wiki1 = "tell me about "
+    wiki2 = "who is "
+    wiki3 = "what is an "
+    wiki4 = "what is a "
+    weather = "tell me weather forecast of "
+    status = "how is the weather in "
+    temp = "what is the temperature in "
+    wspeed = "what is the wind speed in "
+    humidity = "what is the humidity in "
+    pressure = "how much is the weather pressure in "
+    close = "close "
+
+    '''if hr < 12:
+        print("Good morning sir. Have a nice day")
+        speak.Speak("good morning sir. Have a nice day")
+    elif hr >= 12 and hr < 17:
+        print("Good afternoon sir")
+        speak.Speak("good afternoon sir")
+    elif hr >= 17 and hr <= 19:
+        print("Good Evening Boss")
+        speak.Speak("good evening boss")
+
+    speak.Speak("Welcome!")
+    speak.Speak("I'm RIO, Your Voice Assistant")
+    # speak.Speak("I'm programmed to make your work easier")'''
+    # speak.Speak(" ready for your service")
+
+    print("\n# Start speaking to RIO")
+
+    while 1:
+
+        phrase()
+
+        # speak.Speak(str)
+        print(str)
+
+        if str == "hello" or str == "hi" or str == 'hey':
+            print("hello sir\n")
+            speak.Speak("hello sir")
+
+        elif "you there" in str:
+            print("Yes sir, I am at your service \n")
+            speak.Speak("Yes sir, I am at your service ")
+
+        elif str == "RIO":
+            print("yes sir\n")
+            speak.Speak("yes sir")
+
+        elif str == "what can u do":
+            print("I can open any application on your laptop or I can search for something on the Internet\n")
+            speak.Speak("I can open any application on your laptop or I can search for something on the Internet")
+
+        elif str == "hey":
+            print("sir\n")
+            speak.Speak("sir")
+
+        elif "time" in str:
+            print(localtime + "\n")
+            speak.Speak(localtime)
+
+        elif str == "you are awesome":
+            print("thank you sir, it's all your credit\n")
+            speak.Speak("thank you sir, it's all your credit")
+
+        #elif str == "bye" or str == "buy" or str == "break" or str == "bye RIO" or str == "buy RIO" or str == "brake" or str == "terminate":
+        #   if hr >= 20 and hr <= 24:
+        #        print("Good night sir\n")
+        #        speak.Speak("Good night sir")
+        #    else:
+        #        print("see you again sir\n")
+        #        speak.Speak("see you again sir")
+        #    break
+
+        elif str == "how are you":
+            print("I'm good sir. How are you?\n")
+            speak.Speak("I'm good sir. How are you?")
+
+        elif str == "great" or str == "nice" or str == "fine" or str == "good" or str == "ok" or str == "okay" or str == "alright" or str == "cool":
+            print("Thanks sir\n")
+            speak.Speak("sir")
+
+        elif str == guest + str[13:]:  # speak.Speak hello to ------
+            print("hello " + str[13:] + "\n")
+            speak.Speak("hello " + str[13:])
+
+        elif str == google + str[13:]:
+            speak.Speak("here we go")
+            gsearch.search(str[13:])
+
+        elif str == search + str[11:]:
+            speak.Speak("I'm on it sir")
+            gsearch.search(str[11:])
+
+        elif "open calculator" in str or "open Calculator" in str:
+            speak.Speak("opening calculator")
+            myapps.calc()
+
+        elif "open notepad" in str or 'open Notepad' in str:
+            speak.Speak("opening notepad")
+            myapps.notepad()
+
+        elif "open firefox" in str or "open Firefox" in str:
+            speak.Speak("opening firefox")
+            myapps.firefox()
+
+        elif "open chrome" in str or "open Chrome" in str:
+            speak.Speak("opening Google Chrome")
+            myapps.chrome()
+
+        elif str == "open command prompt" or str == "launch Command Prompt":
+            speak.Speak("opening Command Prompt")
+            myapps.cmd()
+
+        elif "open MS Word" in str or "open ms word" in str:
+            speak.Speak("yes sir")
+            myapps.msword()
+
+        elif "open MS Excel" in str:
+            speak.Speak("Here it is")
+            myapps.msexcel()
+
+        elif "open MS PowerPoint" in str:
+            speak.Speak("sure sir")
+            myapps.msppt()
+
+
+        elif str == "shutdown" or str == "shut down" or str == "power off":
+            speak.Speak("yes sir")
+            myapps.shutdown()
+
+        elif str == "restart" or str == "re start" or str == "reopen":
+            speak.Speak("yes sir")
+            myapps.restart()
+
+        elif 'screen' in str or 'click' in str:
+            speak.Speak("Yes sir")
+            myapps.screenshot()
+
+        elif str == "free" or str == "battery" or str == "percentage" or str == "battery percentage":
+            speak.Speak("Yes sir")
+            myapps.battery_datails()
+
+        elif str == wiki + str[11:]:
+            speak.Speak("yes sir")
+            data = mywiki.wiki(str[11:])
+            print(data + "\n")
+            # time.sleep(5)
+            speak.Speak(data)
+
+        elif str == wiki1 + str[14:]:
+            speak.Speak("sure sir")
+            data = mywiki.wiki(str[14:])
+            # time.sleep(5)
+            print(data + "\n")
+            speak.Speak(data)
+
+
+        elif str == wiki2 + str[7:]:
+            speak.Speak("I'm searching the web")
+            data = mywiki.wiki(str[7:])
+            # time.sleep(5)
+            print(data + "\n")
+            speak.Speak(data)
+
+        elif str == wiki3 + str[11:]:
+            speak.Speak("I'm on it")
+            data = mywiki.wiki(str[11:])
+            # time.sleep(5)
+            print(data + "\n")
+            speak.Speak(data)
+
+        elif str == wiki4 + str[10:]:
+            speak.Speak("yes sir")
+            data = mywiki.wiki(str[10:])
+            # time.sleep(5)
+            print(data + "\n")
+            speak.Speak(data)
+
+        elif str == weather + str[28:]:
+            speak.Speak("yes sir")
+            report = myweather.completeWeather(str[28:])
+            print(report + "\n")
+            speak.Speak(report)
+
+        elif str == status + str[22:]:
+            status = myweather.statusWeather(str[22:])
+            print(status + "\n")
+            speak.Speak(status)
+
+        elif str == temp + str[27:]:
+            temp = myweather.tempWeather(str[27:])
+            print(temp + "\n")
+            speak.Speak(temp)
+
+        elif str == wspeed + str[26:]:
+            wspeed = myweather.wspeedWeather(str[26:])
+            print(wspeed + "\n")
+            speak.Speak(wspeed)
+
+        elif str == humidity + str[24:]:
+            humdty = myweather.humidityWeather(str[24:])
+            print(humdty + "\n")
+            speak.Speak(humdty)
+
+        elif str == pressure + str[36:]:
+            press = myweather.pressureWeather(str[36:])
+            print(press + "\n")
+            speak.Speak(press)
+
+        elif 'make folder' in str or 'makefolder' in str or 'file' in str or 'folder' in str:
+            speak.Speak("opening this pc ")
+            speak.Speak("yes sir")
+            folder_backup1.driver()
+            folder_backup1.loca()
+            folder_backup1.makeit()
+
+        elif 'music' in str or 'play music' in str:
+            speak.Speak("Playing music")
+            musicc.openchrome()
+            musicc.first_link()
+            musicc.contlisten()
+
+        elif str == close + (str[6:]):
+            speak.Speak("closing" + str[6:])
+            file1 = myapps.close(str[6:])
+
+        #elif "open Paint" or "open MS Paint" in str:
+         #   speak.Speak("yes sir")
+         #   myapps.mspaint()
+        elif 'bye' in str or 'Bye' in str or 'See you' in str or 'see you' in str:
+            contlist()
+        elif str=='quit':
+            speak.Speak("i m leaving")
+            exit()
+        else:
+            nothing_else()
+contlist()
